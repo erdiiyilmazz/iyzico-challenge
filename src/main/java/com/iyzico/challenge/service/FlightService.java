@@ -1,14 +1,16 @@
 package com.iyzico.challenge.service;
 
+import com.iyzico.challenge.dto.FlightDetailsDto;
 import com.iyzico.challenge.dto.FlightDto;
+import com.iyzico.challenge.dto.SeatDto;
 import com.iyzico.challenge.entity.Flight;
 import com.iyzico.challenge.repository.FlightRepository;
 import com.iyzico.challenge.util.FlightValidation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.validation.Valid;
 import javax.validation.Validator;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,10 +19,12 @@ public class FlightService {
 
     private final FlightRepository flightRepository;
     private final Validator validator;
+    private final SeatService seatService;
 
-    public FlightService(FlightRepository flightRepository, Validator validator) {
+    public FlightService(FlightRepository flightRepository, Validator validator, SeatService seatService) {
         this.flightRepository = flightRepository;
         this.validator = validator;
+        this.seatService = seatService;
     }
 
     @Transactional
@@ -64,9 +68,28 @@ public class FlightService {
         return FlightValidation.convertToDTO(flight);
     }
 
-    public boolean isFlightFull(Long id) {
+    public FlightDetailsDto getFlightDetails(Long id) {
         Flight flight = flightRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Flight not found with id: " + id));
-        return FlightValidation.isFlightFull(flight);
+        
+        List<SeatDto> availableSeats = seatService.getAvailableSeatsForFlight(id);
+        
+        FlightDetailsDto detailsDto = new FlightDetailsDto();
+        detailsDto.setFlightNumber(flight.getFlightNumber());
+        detailsDto.setDescription(flight.getDeparture() + " to " + flight.getArrival());
+        detailsDto.setAvailableSeats(availableSeats);
+        detailsDto.setPrice(flight.getPrice());
+        
+        return detailsDto;
+    }
+
+    public boolean canAddSeatToFlight(Long flightId) {
+        Flight flight = flightRepository.findById(flightId)
+            .orElseThrow(() -> new RuntimeException("Flight not found with id: " + flightId));
+        return flight.getSeats().size() < flight.getCapacity();
+    }
+
+    public boolean flightExists(Long id) {
+        return flightRepository.existsById(id);
     }
 }
