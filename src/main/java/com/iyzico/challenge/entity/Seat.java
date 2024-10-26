@@ -1,6 +1,7 @@
 package com.iyzico.challenge.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "seats")
@@ -11,16 +12,28 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
+    @NotNull
     private Flight flight;
 
     @Column(nullable = false)
+    @NotNull
     private String seatNumber;
 
     @Column(nullable = false)
-    private boolean isAvailable = true;
+    @NotNull
+    private Boolean isAvailable;
 
     @OneToOne(mappedBy = "seat")
     private Booking booking;
+
+    public Seat() {
+    }
+
+    public Seat(@NotNull Flight flight, @NotNull String seatNumber) {
+        this.flight = flight;
+        this.seatNumber = seatNumber;
+        this.isAvailable = true;
+    }
 
     public Long getId() {
         return id;

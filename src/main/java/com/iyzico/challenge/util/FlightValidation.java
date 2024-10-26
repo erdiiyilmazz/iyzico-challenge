@@ -63,4 +63,10 @@ public class FlightValidation {
         BeanUtils.copyProperties(dto, flight);
         return flight;
     }
+
+    public static void validateSeatNumber(String seatNumber) {
+        if (!seatNumber.matches("[A-K]([1-9]|[1-4][0-9]|50)")) {
+            throw new IllegalArgumentException("Seat number must be one uppercase letter (A-K) followed by a number (1-50)");
+        }
+    }
 }

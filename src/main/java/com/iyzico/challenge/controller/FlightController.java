@@ -1,5 +1,6 @@
 package com.iyzico.challenge.controller;
 
+import com.iyzico.challenge.dto.FlightDetailsDto;
 import com.iyzico.challenge.dto.FlightDto;
 import com.iyzico.challenge.service.FlightService;
 import org.springframework.http.HttpStatus;
@@ -49,14 +50,28 @@ public class FlightController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FlightDto> getFlightById(@PathVariable Long id) {
-        FlightDto flight = flightService.getFlightById(id);
-        return ResponseEntity.ok(flight);
+    public ResponseEntity<?> getFlightById(@PathVariable Long id) {
+        try {
+            FlightDto flight = flightService.getFlightById(id);
+            return ResponseEntity.ok(flight);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<FlightDto>> getAllFlights() {
         List<FlightDto> flights = flightService.getAllFlights();
         return ResponseEntity.ok(flights);
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<?> getFlightDetails(@PathVariable Long id) {
+        try {
+            FlightDetailsDto flightDetails = flightService.getFlightDetails(id);
+            return ResponseEntity.ok(flightDetails);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
