@@ -1,19 +1,22 @@
 package com.iyzico.challenge.dto;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class PaymentRequestDto {
-    @NotNull
+    @NotNull(message = "Flight ID is required")
     private Long flightId;
 
-    @NotNull
+    @NotNull(message = "Seat ID is required")
     private Long seatId;
 
-    @NotNull
+    @NotBlank(message = "Passenger name is required")
     private String passengerName;
 
-    @NotNull
+    @NotNull(message = "Price is required")
+    @Positive(message = "Price must be positive")
     private BigDecimal price;
 
     public Long getFlightId() {

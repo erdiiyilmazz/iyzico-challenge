@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import com.iyzico.challenge.exception.ResourceNotFoundException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/seats")
@@ -40,12 +42,32 @@ public class SeatController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<SeatDto> getSeat(@PathVariable Long id) {
+        try {
+            SeatDto seat = seatService.getSeatById(id);
+            return ResponseEntity.ok(seat);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/flight/{flightId}")
+    public ResponseEntity<List<SeatDto>> getSeatsByFlight(@PathVariable Long flightId) {
+        try {
+            List<SeatDto> seats = seatService.getSeatsByFlightId(flightId);
+            return ResponseEntity.ok(seats);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSeat(@PathVariable Long id) {
         try {
             seatService.deleteSeat(id);
             return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }
