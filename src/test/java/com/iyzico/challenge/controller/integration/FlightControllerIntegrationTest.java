@@ -1,4 +1,4 @@
-package com.iyzico.challenge.controller;
+package com.iyzico.challenge.controller.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iyzico.challenge.dto.FlightDto;

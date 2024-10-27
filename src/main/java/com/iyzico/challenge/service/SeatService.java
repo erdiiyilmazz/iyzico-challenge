@@ -10,6 +10,8 @@ import com.iyzico.challenge.util.FlightValidation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.iyzico.challenge.exception.ResourceNotFoundException;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,7 @@ public class SeatService {
     @Transactional
     public SeatDto addSeat(SeatDto seatDto) {
         Flight flight = flightRepository.findById(seatDto.getFlightId())
-                .orElseThrow(() -> new RuntimeException("Flight not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Flight not found"));
         
         if (flight.getSeats().size() >= flight.getCapacity()) {
             throw new IllegalStateException("Cannot add more seats. Flight capacity reached.");
@@ -73,7 +75,7 @@ public class SeatService {
     @Transactional
     public void deleteSeat(Long id) {
         Seat seat = seatRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Seat not found with id: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Seat not found with id: " + id));
         seatRepository.delete(seat);
     }
 
@@ -85,6 +87,20 @@ public class SeatService {
 
     public int getSeatsCountForFlight(Long flightId) {
         return seatRepository.countByFlightId(flightId);
+    }
+
+    public SeatDto getSeatById(Long id) {
+        Seat seat = seatRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Seat not found"));
+        return convertToDto(seat);
+    }
+
+    public List<SeatDto> getSeatsByFlightId(Long flightId) {
+        Flight flight = flightRepository.findById(flightId)
+            .orElseThrow(() -> new ResourceNotFoundException("Flight not found"));
+        return seatRepository.findByFlightId(flightId).stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
     }
 
     private SeatDto convertToDto(Seat seat) {

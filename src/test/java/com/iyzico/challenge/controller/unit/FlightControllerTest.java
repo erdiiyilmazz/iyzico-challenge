@@ -1,6 +1,7 @@
-package com.iyzico.challenge.controller;
+package com.iyzico.challenge.controller.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iyzico.challenge.controller.FlightController;
 import com.iyzico.challenge.dto.FlightDto;
 import com.iyzico.challenge.dto.FlightDetailsDto;
 import com.iyzico.challenge.service.FlightService;
