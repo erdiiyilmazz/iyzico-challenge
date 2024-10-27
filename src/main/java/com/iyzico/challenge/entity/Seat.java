@@ -23,9 +23,6 @@ public class Seat {
     @NotNull
     private Boolean isAvailable;
 
-    @OneToOne(mappedBy = "seat")
-    private Booking booking;
-
     public Seat() {
     }
 
@@ -65,13 +62,5 @@ public class Seat {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
-    }
-
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
     }
 }

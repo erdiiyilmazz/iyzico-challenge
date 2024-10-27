@@ -1,17 +1,14 @@
 package com.iyzico.challenge.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "payments")
 public class Payment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -20,8 +17,16 @@ public class Payment {
     @Column(nullable = false)
     private String bankResponse;
 
-    @OneToOne(mappedBy = "payment")
-    private Booking booking;
+    @Column(nullable = false)
+    private String passengerName;
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id", nullable = false)
+    private Flight flight;
+
+    @OneToOne
+    @JoinColumn(name = "seat_id", nullable = false)
+    private Seat seat;
 
     public Long getId() {
         return id;
@@ -47,11 +52,27 @@ public class Payment {
         this.bankResponse = bankResponse;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public String getPassengerName() {
+        return passengerName;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 }
