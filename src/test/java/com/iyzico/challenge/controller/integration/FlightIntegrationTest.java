@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FlightControllerIntegrationTest {
+public class FlightIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
