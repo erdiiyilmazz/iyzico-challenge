@@ -83,6 +83,10 @@ public class SeatService {
                 .collect(Collectors.toList());
     }
 
+    public int getSeatsCountForFlight(Long flightId) {
+        return seatRepository.countByFlightId(flightId);
+    }
+
     private SeatDto convertToDto(Seat seat) {
         SeatDto dto = new SeatDto();
         BeanUtils.copyProperties(seat, dto);

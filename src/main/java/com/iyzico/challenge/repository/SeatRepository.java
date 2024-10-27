@@ -12,4 +12,6 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     List<Seat> findByFlightIdAndIsAvailableTrue(Long flightId);
 
     Optional<Seat> findByFlightAndSeatNumber(Flight flight, String seatNumber);
+
+    int countByFlightId(Long flightId);
 }

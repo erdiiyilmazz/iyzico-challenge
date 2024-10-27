@@ -86,7 +86,8 @@ public class FlightService {
     public boolean canAddSeatToFlight(Long flightId) {
         Flight flight = flightRepository.findById(flightId)
             .orElseThrow(() -> new RuntimeException("Flight not found with id: " + flightId));
-        return flight.getSeats().size() < flight.getCapacity();
+        int currentSeatsCount = seatService.getSeatsCountForFlight(flightId);
+        return currentSeatsCount < flight.getCapacity();
     }
 
     public boolean flightExists(Long id) {
