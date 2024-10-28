@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "db919032-5f9b-4028-afea-91205f510e90",
+		"name": "Iyzico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6844677"
+	},
+	"item": [
+		{
+			"name": "addFlight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"flightNumber\": \"JL789\",\n    \"departure\": \"Tokyo\",\n    \"arrival\": \"Bangkok\",\n    \"departureTime\": \"2024-11-10T09:20:00\",\n    \"arrivalTime\": \"2024-11-10T14:50:00\",\n    \"capacity\": 270,\n    \"price\": 750.00\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/flights",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateFlight",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"flightNumber\": \"SQ890\",\n    \"departure\": \"Singapore\",\n    \"arrival\": \"San Francisco\",\n    \"departureTime\": \"2024-11-07T01:30:00\",\n    \"arrivalTime\": \"2024-11-07T21:45:00\",\n    \"capacity\": 330,\n    \"price\": 1250.00\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/flights/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"flights",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllFlights",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/flights",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteFlight",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/flights/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"flights",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addSeat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"flightId\": 1,\n  \"seatNumber\": \"B4\",\n  \"isAvailable\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateSeat",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"flightId\": 3,\n  \"seatNumber\": \"C13\",\n  \"isAvailable\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seats/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seats",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteSeat",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/seats/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seats",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFlightDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/flights/{flightId}/details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"flights",
+						"{flightId}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchase",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"flightId\": 1,\n  \"seatId\": 1,\n  \"passengerName\": \"Erdi Yılmaz\",\n  \"price\": 750.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/payments/purchase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"payments",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchaseWithIyzico",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cardHolderName\": \"John Doe\",\n    \"cardNumber\": \"5528790000000008\",\n    \"expireMonth\": \"12\",\n    \"expireYear\": \"2030\",\n    \"cvc\": \"123\",\n    \"price\": 100.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/payments/purchase-with-iyzico/{flightId}/{seatNumber}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"payments",
+						"purchase-with-iyzico",
+						"{flightId}",
+						"{seatNumber}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
