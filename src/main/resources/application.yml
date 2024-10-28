@@ -20,3 +20,7 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+iyzico:
+  url: https://sandbox-api.iyzipay.com
+  api-key: sandbox-KtVCjDwXhjJUD4vExz6VOnIWJYnssayo
+  secretKey: sandbox-Lp1vRimpB51TapCZwVICvQMUcGcqvCAB

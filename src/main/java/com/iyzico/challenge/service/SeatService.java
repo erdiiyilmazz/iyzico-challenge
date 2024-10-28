@@ -110,4 +110,30 @@ public class SeatService {
         dto.setAvailable(seat.isAvailable());  
         return dto;
     }
+
+    public boolean isSeatAvailable(Long flightId, String seatNumber) {
+        Flight flight = flightRepository.findById(flightId)
+            .orElseThrow(() -> new ResourceNotFoundException("Flight not found"));
+            
+        Optional<Seat> seat = seatRepository.findByFlightAndSeatNumber(flight, seatNumber);
+        
+        return seat.map(Seat::isAvailable)
+            .orElseThrow(() -> new ResourceNotFoundException("Seat not found"));
+    }
+
+    @Transactional
+    public void reserveSeat(Long flightId, String seatNumber) {
+        Flight flight = flightRepository.findById(flightId)
+            .orElseThrow(() -> new ResourceNotFoundException("Flight not found"));
+            
+        Seat seat = seatRepository.findByFlightAndSeatNumber(flight, seatNumber)
+            .orElseThrow(() -> new ResourceNotFoundException("Seat not found"));
+            
+        if (!seat.isAvailable()) {
+            throw new IllegalStateException("Seat is already reserved");
+        }
+        
+        seat.setAvailable(false);
+        seatRepository.save(seat);
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iyzico.challenge.controller.PaymentController;
 import com.iyzico.challenge.dto.PaymentRequestDto;
 import com.iyzico.challenge.dto.PaymentResponseDto;
+import com.iyzico.challenge.service.IyzicoPaymentProcessorService;
 import com.iyzico.challenge.service.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ class PaymentControllerTest {
 
     @MockBean
     private PaymentService paymentService;
+
+    @MockBean
+    private IyzicoPaymentProcessorService iyzicoPaymentProcessorService;
 
     private PaymentRequestDto validPaymentRequest;
     private PaymentResponseDto successfulPaymentResponse;

@@ -93,4 +93,9 @@ public class FlightService {
     public boolean flightExists(Long id) {
         return flightRepository.existsById(id);
     }
+
+    public Flight getFlight(Long flightId) {
+        return flightRepository.findById(flightId)
+                .orElse(null);
+    }
 }
