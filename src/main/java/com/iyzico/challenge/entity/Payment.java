@@ -11,21 +11,21 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private BigDecimal price;
 
-    @Column(nullable = false)
+    @Column
     private String bankResponse;
 
-    @Column(nullable = false)
+    @Column
     private String passengerName;
 
     @ManyToOne
-    @JoinColumn(name = "flight_id", nullable = false)
+    @JoinColumn(name = "flight_id")
     private Flight flight;
 
     @OneToOne
-    @JoinColumn(name = "seat_id", nullable = false)
+    @JoinColumn(name = "seat_id")
     private Seat seat;
 
     public Long getId() {
